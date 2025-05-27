@@ -64,9 +64,12 @@
       <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">About</a>
       <div class="block">
         <span class="block px-4 py-2 text-gray-700 font-semibold">Services</span>
-        <a href="#" class="block px-6 py-2 text-gray-700 hover:bg-gray-100">Web Development</a>
-        <a href="#" class="block px-6 py-2 text-gray-700 hover:bg-gray-100">App Development</a>
-        <a href="#" class="block px-6 py-2 text-gray-700 hover:bg-gray-100">Consulting</a>
+        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Implementations</a>
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Migrations</a>
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Tenant-to-Tenant Migrations</a>
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">VMware to Microsoft</a>
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Legacy Applications</a>
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Corporate Training</a>
       </div>
       <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Products</a>
       <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">FAQ's</a>
