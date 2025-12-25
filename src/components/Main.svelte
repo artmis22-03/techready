@@ -1,87 +1,140 @@
 <script>
-  // Your script if needed
+  import { onMount, onDestroy } from "svelte";
+
+  // --- Carousel Data ---
+  let currentSlide = 0;
+  const carouselItems = [
+    { 
+      title: "Technology Consulting", 
+      description: "From strategy to execution, we provide expert guidance to align your IT with business goals. Let us help you chart a clear path for digital transformation.",
+      icon: "🧠"
+    },
+    { 
+      title: "Cloud Migration Services", 
+      description: "Seamlessly transition your infrastructure to Azure. We handle planning, execution, and optimization to minimize downtime.",
+      icon: "☁️"
+    },
+    { 
+      title: "Managed IT Services", 
+      description: "24/7 proactive monitoring, security management, and support, ensuring your systems are always available, secure, and performing optimally.",
+      icon: "🛡️"
+    },
+    { 
+      title: "IT Staff Augmentation", 
+      description: "Scale your team quickly with highly skilled IT professionals tailored to your specific project needs and company culture.",
+      icon: "🤝"
+    },
+  ];
+
+  const nextSlide = () => {
+    currentSlide = (currentSlide + 1) % carouselItems.length;
+  };
+
+  const prevSlide = () => {
+    currentSlide = (currentSlide - 1 + carouselItems.length) % carouselItems.length;
+  };
+
+  // --- Auto-play Carousel ---
+  /**
+     * @type {number | undefined}
+     */
+  let interval;
+  onMount(() => {
+    interval = setInterval(nextSlide, 5000); // Change every 5s
+  });
+  onDestroy(() => clearInterval(interval));
+
+  // --- Cards Data ---
+  const pillarCards = [
+    { 
+      title: "Making Potential a Reality", 
+      text: "We help organizations turn potential into performance with the right IT tools, strategy, and support.",
+      color: "from-[#0a1a4a] to-blue-800"
+    },
+    { 
+      title: "Making It Happen", 
+      text: "With expert guidance and proven solutions, we ensure smooth execution of your technology vision.",
+      color: "from-[#6a1b1b] to-red-800"
+    },
+    { 
+      title: "People to People", 
+      text: "Empowering your team through mentorship and training to tackle IT challenges confidently.",
+      color: "from-[#0a1a4a] to-blue-800"
+    },
+  ];
 </script>
 
-<div class="min-h-screen bg-gray-100">
-  <!-- Hero Section -->
-  <section class="relative bg-[url('/home_bg.jpg')] bg-cover bg-center flex items-center justify-center py-50 text-white text-center">
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-black/50"></div>
+<!-- --- Main Layout --- -->
+<div class="pt-24 text-gray-900 overflow-hidden">
 
-    <!-- Transparent Card with Shadow -->
-    <div class="relative z-0 bg-white/10 backdrop-blur-md shadow-xl rounded-lg p-8 max-w-lg">
-      <h1 class="text-4xl font-bold mb-4">To simplify and strengthen IT</h1>
-      
+  <!-- --- Hero Carousel --- -->
+  <section class="relative flex flex-col items-center justify-center text-center px-6 min-h-[70vh]">
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0a1a4a] to-[#6a1b1b] opacity-90"></div>
+
+    <!-- Carousel Slide -->
+    <div class="relative z-10 max-w-3xl text-white transition-all duration-700 ease-in-out">
+      <div class="flex flex-col items-center">
+        <div class="text-6xl mb-6 animate-bounce">{carouselItems[currentSlide].icon}</div>
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">{carouselItems[currentSlide].title}</h2>
+        <p class="text-lg md:text-xl text-gray-200 leading-relaxed px-4">{carouselItems[currentSlide].description}</p>
+      </div>
+    </div>
+
+    <!-- Carousel Controls -->
+    <div class="absolute bottom-6 flex items-center gap-4 z-20">
+      <button
+        on:click={prevSlide}
+        class="p-2 bg-white/20 rounded-full hover:bg-white/40 transition"
+        aria-label="Previous Slide">
+        ◀
+      </button>
+      <button
+        on:click={nextSlide}
+        class="p-2 bg-white/20 rounded-full hover:bg-white/40 transition"
+        aria-label="Next Slide">
+        ▶
+      </button>
+    </div>
+
+    <!-- Slide Indicators -->
+    <div class="absolute bottom-2 flex justify-center gap-2">
+      {#each carouselItems as _, i}
+        <span
+          class="h-2 w-2 rounded-full transition-all duration-300"
+          class:bg-white={i === currentSlide}
+          ></span>
+      {/each}
     </div>
   </section>
 
-<section class="p-5">
-  <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-purple-400 to-pink-300 px-6 py-12 backdrop-blur-sm sm:px-12 sm:py-16">
-    <div class="relative">
-      <div class="flex flex-col items-center gap-8 text-center sm:flex-row sm:justify-between sm:text-left">
-        <!-- Text Block -->
+  <!-- --- What We Do Section --- -->
+  <section id="services" class="max-w-6xl mx-auto py-20 px-6">
+    <div class="relative rounded-3xl bg-gradient-to-r from-[#0a1a4a] to-[#6a1b1b] text-white px-8 py-16 shadow-lg overflow-hidden">
+      <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
         <div class="max-w-2xl">
-          <h3 class="bg-gradient-to-r from-white to-white/70 bg-clip-text text-3xl font-bold tracking-tight text-black sm:text-4xl">
-            What We Do
-          </h3>
-          <p class="mt-4 text-lg text-gray-700">
-            At TechReady Solutions, we specialize in Technology Consulting, Implementation, Migrations, and IT services tailored for businesses of all sizes. From Microsoft ecosystem deployments to hybrid cloud strategies, we help you transform, optimize, and future-proof your IT operations.
+          <h3 class="text-4xl font-semibold mb-4">What We Do</h3>
+          <p class="text-lg text-gray-200 leading-relaxed">
+            At TechReady Solutions, we specialize in technology consulting, migrations, and managed IT services.
+            From Microsoft ecosystem deployments to hybrid cloud strategies, we help you transform and future-proof your IT operations.
           </p>
         </div>
 
-        <!-- Contact Button -->
-        <div>
-          <a href="#contact" class="inline-block rounded-lg bg-white/70 px-6 py-3 text-lg font-semibold text-purple-700 shadow-lg hover:bg-white transition">
-            Contact Us
-          </a>
-        </div>
+        <a href="/contact" class="rounded-xl bg-white text-[#0a1a4a] font-semibold px-8 py-4 shadow-lg hover:bg-gray-100 transition-all">
+          Contact Us
+        </a>
       </div>
+      <div class="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent"></div>
     </div>
-  </div>
-</section>
+  </section>
 
-  <!-- <section class="p-5">
-    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-purple-400 to-pink-300 px-6 py-12 backdrop-blur-sm sm:px-12 sm:py-16">
-        <div class="relative"><div class="flex flex-col items-center gap-8 text-center sm:flex-row sm:justify-between sm:text-left">
-            <div class="max-w-2xl">
-                <h3 class="bg-gradient-to-r from-white to-white/70 bg-clip-text text-3xl font-bold tracking-tight text-black sm:text-4xl">What We Do</h3>
-                <p class="mt-4 text-lg text-grey">At TechReady Solutions, we specialize in Technology Consulting, Implementation, Migrations, and IT services tailored 
-                    or businesses of all sizes. From Microsoft ecosystem deployments to hybrid cloud strategies, we help you transform, optimize, and future-proof your IT operations.</p>
-            </div> 
-            
-        </div>
-    </div>
-  </section> -->
-  <!-- Cards Section -->
-  <section class="max-w-6xl mx-auto py-12 px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-
-  <!-- Card 1 -->
-  <div class="bg-white shadow-xl rounded-3xl p-8 flex flex-col justify-between hover:scale-105 hover:shadow-2xl transition-all duration-500">
-    <h2 class="text-2xl text-center font-semibold mb-4">Making Potential a Reality</h2>
-    <p class="text-gray-600 text-center leading-relaxed mb-4">
-      We believe in turning potential into reality by providing the right tools, training, and support to help businesses thrive in the digital age.
-    </p>
-    
-  </div>
-
-  <!-- Card 2 -->
-  <div class="bg-white shadow-xl rounded-3xl p-8 flex flex-col justify-between hover:scale-105 hover:shadow-2xl transition-all duration-500">
-    <h2 class="text-2xl text-center font-semibold mb-4">Making it Happen</h2>
-    <p class="text-gray-600 text-center leading-relaxed mb-4">
-      Our commitment to excellence ensures that we deliver on our promises, helping you achieve your IT goals efficiently and effectively.
-    </p>
-    
-  </div>
-
-  <!-- Card 3 -->
-  <div class="bg-white shadow-xl rounded-3xl p-8 flex flex-col justify-between hover:scale-105 hover:shadow-2xl transition-all duration-500">
-    <h2 class="text-2xl text-center font-semibold mb-4">People to People (Mentoring & Grooming)</h2>
-    <p class="text-gray-600 text-center leading-relaxed mb-4">
-      We focus on mentoring and grooming your team to ensure they are ready to tackle any IT challenge with confidence.
-    </p>
-    
-  </div>
-
-</section>
-
+  <!-- --- Pillar Cards --- -->
+  <section class="max-w-7xl mx-auto py-16 px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+    {#each pillarCards as card}
+      <div
+        class="p-8 rounded-3xl shadow-lg border border-gray-100 bg-gradient-to-br {card.color} text-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+        <h2 class="text-2xl font-semibold mb-3 text-center">{card.title}</h2>
+        <p class="text-gray-100 text-center leading-relaxed">{card.text}</p>
+      </div>
+    {/each}
+  </section>
 </div>

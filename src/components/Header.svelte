@@ -1,82 +1,71 @@
 <script>
-  let isOpen = false;
-</script>
-<header class="sticky top-0 z-5 bg-white shadow-md">
-<div class="min-h-16 bg-gray-100">
-  <!-- Navbar -->
-  <nav class="bg-white shadow">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
-        <div class="flex">
-          <div class="flex-shrink-0 flex items-center text-2xl font-bold text-blue-600">
-            TechReady
-          </div>
-          <!-- Desktop Menu -->
-          <div class="hidden md:flex md:items-center md:space-x-8 ml-10">
-            <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">Home</a>
-            <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">About</a>
-            <div class="relative group">
-              <button class="inline-flex items-center px-2 py-3 text-gray-700 hover:text-blue-600">
-                Services
-                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              <div
-                class="absolute z-40 w-48 bg-white border border-gray-200 rounded shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-opacity duration-200"
-              >
-                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Implementations</a>
-                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Migrations</a>
-                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Tenant-to-Tenant Migrations</a>
-                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">VMware to Microsoft</a>
-                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Legacy Applications</a>
-                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Corporate Training</a>
-              </div>
-            </div>
-            <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">Products</a>
-            <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">FAQ's</a>
-          </div>
-        </div>
-
-        <!-- Mobile menu button -->
-        <div class="md:hidden flex items-center">
-          <button on:click={() => isOpen = !isOpen} class="text-gray-700 hover:text-blue-600 focus:outline-none">
-
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {#if isOpen}
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M6 18L18 6M6 6l12 12" />
-              {:else}
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16" />
-              {/if}
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile Menu -->
-    {#if isOpen}
-    <div class="md:hidden bg-white border-t border-gray-200">
-      <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Home</a>
-      <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">About</a>
-      <div class="block">
-        <span class="block px-4 py-2 text-gray-700 font-semibold">Services</span>
-        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Implementations</a>
-                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Migrations</a>
-                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Tenant-to-Tenant Migrations</a>
-                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">VMware to Microsoft</a>
-                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Legacy Applications</a>
-                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Corporate Training</a>
-      </div>
-      <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Products</a>
-      <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">FAQ's</a>
-    </div>
-    {/if}
-  </nav>
-
   
-</div>
+  import { slide, fade } from "svelte/transition";
+  let menuOpen = false;
+</script>
+
+
+<header class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
+  <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+    <!-- Logo -->
+    <div class="flex items-center gap-2">
+      <img src="/" alt="Logo" class="h-10 w-auto" />
+      <span class="font-bold text-xl text-blue-900">TechReady Solutions</span>
+    </div>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex space-x-6">
+      <a href="/" class="hover:text-blue-700 font-medium">Home</a>
+      <a href="#services" class="hover:text-blue-700 font-medium">Services</a>
+      <a href="#about" class="hover:text-blue-700 font-medium">About</a>
+      <a href="/contact" class="hover:text-blue-700 font-medium">Contact</a>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <!-- <button class="md:hidden text-gray-700 focus:outline-none" on:click={() => menuOpen = !menuOpen}>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button> -->
+    <button 
+  class="md:hidden text-gray-700 focus:outline-none transition-transform duration-300"
+  on:click={() => menuOpen = !menuOpen}
+>
+  <svg 
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6 transform transition-transform duration-300"
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    stroke-width="2"
+  >
+    <path 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+      d={menuOpen 
+        ? "M6 18L18 6M6 6l12 12"  // X icon
+        : "M4 6h16M4 12h16M4 18h16" // Hamburger
+      } 
+      class="transition-all duration-300"
+    />
+  </svg>
+</button>
+
+  </div>
+
+  <!-- Mobile Nav -->
+  {#if menuOpen}
+  <div
+    class="md:hidden bg-white border-t border-gray-200"
+    transition:slide={{ duration: 250 }}
+    
+  >
+      <a href="/" class="block px-4 py-2 hover:bg-gray-100">Home</a>
+      <a href="#services" class="block px-4 py-2 hover:bg-gray-100">Services</a>
+      <a href="#about" class="block px-4 py-2 hover:bg-gray-100">About</a>
+      <a href="#contact" class="block px-4 py-2 hover:bg-gray-100">Contact</a>
+  </div>
+{/if}
+
 </header>
