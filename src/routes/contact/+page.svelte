@@ -61,10 +61,11 @@ San Jose, CA 95110, USA`
 <style>
   /* Hero */
   .contact-hero {
-    background: linear-gradient(135deg, #1e3a8a, #7f1d1d);
-    color: #fff;
+    /* background: linear-gradient(135deg, #97b3ff, #ffaeae); */
+    color: #000000;
     text-align: center;
     padding: 80px 20px;
+    margin-top: 60px;
   }
 
   .contact-hero h1 {
